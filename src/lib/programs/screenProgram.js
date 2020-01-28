@@ -14,11 +14,11 @@ export default function makeScreenProgram(ctx) {
 
   // TODO: Allow customization? Last time I tried, I didn't like it too much.
   // It was very easy to screw up the design, and the tool looked ugly :-/
-  let backgroundColor = { r: 19/255, g: 41/255, b: 79/255, a: 1 };
+  let backgroundColor = { r: 255, g: 255, b: 255, a: 1 };
 
   updateScreenTextures();
   var screenProgram = glUtils.createProgram(gl, getScreenVertexShader(), getScreenFragmentShader());
-  
+
   var api = {
     fadeOutLastFrame,
     renderCurrentScreen,
@@ -28,7 +28,7 @@ export default function makeScreenProgram(ctx) {
   };
 
   return api;
-  
+
   function fadeOutLastFrame() {
     // render to the frame buffer
     glUtils.bindFramebuffer(gl, ctx.framebuffer, screenTexture);
@@ -52,7 +52,7 @@ export default function makeScreenProgram(ctx) {
 
     saveLastBbox();
 
-    gl.enable(gl.BLEND); 
+    gl.enable(gl.BLEND);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
     gl.clearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
     gl.clear(gl.COLOR_BUFFER_BIT);
@@ -93,7 +93,7 @@ export default function makeScreenProgram(ctx) {
       }
 
       return;
-    } 
+    }
 
     lastRenderedBoundingBox.minX = ctx.bbox.minX;
     lastRenderedBoundingBox.minY = ctx.bbox.minY;

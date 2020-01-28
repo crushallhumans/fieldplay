@@ -19,6 +19,10 @@ import createDrawParticlesProgram from './programs/drawParticlesProgram';
 import createCursorUpdater from './utils/cursorUpdater';
 import createVectorFieldEditorState from './editor/vectorFieldState';
 import createInputsModel from './createInputsModel';
+import generateFunction from './generate-equation';
+import wrapVectorField from './wrapVectorField';
+
+// execute "this.scene.generateNewFunction()" from console / container window to randomize
 
 /**
  * Kicks offs the app rendering. Initialized before even vue is loaded.
@@ -149,6 +153,7 @@ export default function initScene(gl) {
     getColorMode,
 
     vectorFieldEditorState,
+    generateNewFunction,
 
     inputsModel,
 
@@ -314,6 +319,11 @@ export default function initScene(gl) {
       cursorUpdater.dispose();
       vectorFieldEditorState.dispose();
   }
+
+  function generateNewFunction() {
+    this.vectorFieldEditorState.setCode(wrapVectorField(generateFunction()));
+  }
+
 
   function nextFrame() {
     if (lastAnimationFrame) return;
